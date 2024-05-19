@@ -8,7 +8,7 @@ def disminuir_stock(canal, metodo, propiedades, cuerpo):
     mensaje = json.loads(cuerpo)
     client = MongoClient('mongodb://localhost:27017/')
     db = client['inventario']
-    coleccion_productos = db['productos']
+    coleccion_productos = db['producto']
 
     for producto in mensaje['productos']:
         id_producto = producto['id_producto']
