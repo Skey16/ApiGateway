@@ -40,3 +40,16 @@ class RepositorioOrdenMongoDB:
         if resultado.modified_count == 0:
             raise ValueError("El estatus no fue actualizado")
         return True
+
+    def obtener_por_id(self, id_orden):
+        orden = self.coleccion_ordenes.find_one({'_id': ObjectId(id_orden)})
+        if orden:
+            return {
+                "_id": str(orden["_id"]),
+                "total": orden["total"],
+                "fecha": orden["fecha"],
+                "estado": orden["estado"],
+                "productos_orden": [{"id_producto": str(p["id_producto"]), "precio": p["precio"], "cantidad": p["cantidad"]} for p in orden["productos_orden"]]
+            }
+        else:
+            return None
